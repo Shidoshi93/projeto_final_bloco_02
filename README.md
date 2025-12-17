@@ -43,11 +43,27 @@ npm install
 ```
 
 3. Configure as variáveis de ambiente:
+
+A aplicação utiliza variáveis de ambiente para diferentes ambientes (desenvolvimento, teste e produção). Você **PRECISA** criar os arquivos `.env` correspondentes ao seu ambiente:
+
 ```bash
-cp .env.example .env
+# Para desenvolvimento
+cp .env.example .env.development
+
+# Para testes (opcional, usa SQLite em memória)
+cp .env.test.example .env.test
+
+# Para produção
+cp .env.example .env.production
 ```
 
-4. Crie o banco de dados:
+**⚠️ IMPORTANTE:** 
+- Cada ambiente tem seu próprio arquivo `.env.<NODE_ENV>`
+- A variável `NODE_ENV` determina qual arquivo será carregado
+- Ambiente de **teste usa SQLite em memória** (não precisa de MySQL)
+- Ambientes de **desenvolvimento e produção usam MySQL**
+
+5. Crie o banco de dados:
 ```bash
 npm run create-db
 ```
@@ -250,17 +266,6 @@ No Content
 ```
 </details>
 
-## 🔧 Variáveis de Ambiente
-
-Veja `.env.example` para a configuração necessária:
-```
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_USER=seu_usuario
-DATABASE_PASSWORD=sua_senha
-DATABASE_NAME=seu_banco_dados
-```
-
 ## 📝 Scripts Disponíveis
 
 - `npm run start` - Inicia a aplicação
@@ -271,10 +276,7 @@ DATABASE_NAME=seu_banco_dados
 - `npm run test:e2e` - Executa testes end-to-end
 - `npm run create-db` - Cria o banco de dados
 
-## 📄 Licença
-
-MIT
-
 ## 👨‍💻 Autor
+- Daniel Ribeiro
 
-Desenvolvido como projeto final do bloco 02.
+**Desenvolvido como projeto final do bloco 02.**
