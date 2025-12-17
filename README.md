@@ -1,98 +1,280 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Projeto Final Bloco 02
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Uma aplicação backend desenvolvida com **NestJS** e **TypeORM** para gerenciamento de categorias com suporte a múltiplos ambientes (dev e prod).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Tecnologias
 
-## Description
+- **NestJS** - Framework Node.js progressivo
+- **TypeORM** - ORM para TypeScript/JavaScript
+- **PostgreSQL** - Banco de dados
+- **Jest** - Framework de testes
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📁 Estrutura do Projeto
 
-## Project setup
+```
+src/
+├── app.module.ts          # Módulo principal da aplicação
+├── main.ts                # Arquivo de entrada
+└── data/
+    └── service/
+        ├── dev.service.ts  # Configuração para ambiente de desenvolvimento
+        └── prod.service.ts # Configuração para ambiente de produção
 
-```bash
-$ npm install
+src/category/             # Módulo de categorias
+├── controller/           # Controladores
+├── service/             # Lógica de negócio
+├── entities/            # Entidades do banco de dados
+└── dtos/               # Data Transfer Objects
+
+test/                     # Testes e2e
 ```
 
-## Compile and run the project
+## 🛠️ Instalação
 
+1. Clone o repositório:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone <seu-repositorio>
+cd projeto_final_bloco_02
 ```
 
-## Run tests
-
+2. Instale as dependências:
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+3. Configure as variáveis de ambiente:
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+cp .env.example .env
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+4. Crie o banco de dados:
+```bash
+npm run create-db
+```
 
-## Resources
+## ▶️ Rodando a Aplicação
 
-Check out a few resources that may come in handy when working with NestJS:
+### Desenvolvimento
+```bash
+npm run start:dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Produção
+```bash
+npm run start:prod
+```
 
-## Support
+### Build
+```bash
+npm run build
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🧪 Testes
 
-## Stay in touch
+### Testes unitários
+```bash
+npm test
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Testes e2e
+```bash
+npm run test:e2e
+```
 
-## License
+## 📚 API Endpoints
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Categorias
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/category` | Lista todas as categorias |
+| GET | `/category/:id` | Busca categoria por ID |
+| GET | `/category/name/:name` | Busca categorias por nome |
+| GET | `/category/is-active/:isActive` | Busca categorias por status ativo/inativo |
+| POST | `/category` | Cria uma nova categoria |
+| PUT | `/category/:id` | Atualiza uma categoria |
+| DELETE | `/category/:id` | Deleta uma categoria |
+
+### Exemplos de Requisições
+
+<details>
+<summary><strong>GET - Listar todas as categorias</strong></summary>
+
+```bash
+GET http://localhost:3000/category
+```
+
+**Resposta (200):**
+```json
+[
+  {
+    "id": 1,
+    "name": "Eletrônicos",
+    "description": "Produtos eletrônicos em geral",
+    "isActive": true,
+    "createdAt": "2025-12-17T10:30:00Z",
+    "updateAt": "2025-12-17T10:30:00Z"
+  }
+]
+```
+</details>
+
+<details>
+<summary><strong>GET - Buscar categoria por ID</strong></summary>
+
+```bash
+GET http://localhost:3000/category/1
+```
+
+**Resposta (200):**
+```json
+{
+  "id": 1,
+  "name": "Eletrônicos",
+  "description": "Produtos eletrônicos em geral",
+  "isActive": true,
+  "createdAt": "2025-12-17T10:30:00Z",
+  "updateAt": "2025-12-17T10:30:00Z"
+}
+```
+</details>
+
+<details>
+<summary><strong>GET - Buscar categorias por nome</strong></summary>
+
+```bash
+GET http://localhost:3000/category/name/eletrônicos
+```
+
+**Resposta (200):**
+```json
+[
+  {
+    "id": 1,
+    "name": "Eletrônicos",
+    "description": "Produtos eletrônicos em geral",
+    "isActive": true,
+    "createdAt": "2025-12-17T10:30:00Z",
+    "updateAt": "2025-12-17T10:30:00Z"
+  }
+]
+```
+</details>
+
+<details>
+<summary><strong>GET - Buscar categorias por status (ativo/inativo)</strong></summary>
+
+```bash
+GET http://localhost:3000/category/is-active/false
+```
+
+**Resposta (200):**
+```json
+[
+  {
+    "id": 2,
+    "name": "Descontinuado",
+    "description": "Produtos descontinuados",
+    "isActive": false,
+    "createdAt": "2025-12-17T10:30:00Z",
+    "updateAt": "2025-12-17T10:30:00Z"
+  }
+]
+```
+</details>
+
+<details>
+<summary><strong>POST - Criar nova categoria</strong></summary>
+
+```bash
+POST http://localhost:3000/category
+Content-Type: application/json
+
+{
+  "name": "Eletrônicos",
+  "description": "Produtos eletrônicos em geral",
+  "isActive": true
+}
+```
+
+**Resposta (201):**
+```json
+{
+  "id": 3,
+  "name": "Eletrônicos",
+  "description": "Produtos eletrônicos em geral",
+  "isActive": true,
+  "createdAt": "2025-12-17T10:30:00Z",
+  "updateAt": "2025-12-17T10:30:00Z"
+}
+```
+</details>
+
+<details>
+<summary><strong>PUT - Atualizar categoria</strong></summary>
+
+```bash
+PUT http://localhost:3000/category/1
+Content-Type: application/json
+
+{
+  "name": "Eletrônicos Atualizados",
+  "description": "Produtos eletrônicos - versão atualizada",
+  "isActive": true
+}
+```
+
+**Resposta (200):**
+```json
+{
+  "id": 1,
+  "name": "Eletrônicos Atualizados",
+  "description": "Produtos eletrônicos - versão atualizada",
+  "isActive": true,
+  "createdAt": "2025-12-17T10:30:00Z",
+  "updateAt": "2025-12-17T11:45:00Z"
+}
+```
+</details>
+
+<details>
+<summary><strong>DELETE - Deletar categoria</strong></summary>
+
+```bash
+DELETE http://localhost:3000/category/1
+```
+
+**Resposta (204):**
+```
+No Content
+```
+</details>
+
+## 🔧 Variáveis de Ambiente
+
+Veja `.env.example` para a configuração necessária:
+```
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=seu_usuario
+DATABASE_PASSWORD=sua_senha
+DATABASE_NAME=seu_banco_dados
+```
+
+## 📝 Scripts Disponíveis
+
+- `npm run start` - Inicia a aplicação
+- `npm run start:dev` - Inicia em modo desenvolvimento com hot-reload
+- `npm run start:prod` - Inicia em modo produção
+- `npm run build` - Compila o TypeScript
+- `npm test` - Executa testes unitários
+- `npm run test:e2e` - Executa testes end-to-end
+- `npm run create-db` - Cria o banco de dados
+
+## 📄 Licença
+
+MIT
+
+## 👨‍💻 Autor
+
+Desenvolvido como projeto final do bloco 02.
