@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { DevService } from './data/service/dev.service';
 import { ProdService } from './data/service/prod.service';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProdService } from './data/service/prod.service';
         : ProdService,
       imports: [ConfigModule],
     }),
+    CategoryModule,
   ],
   controllers: [],
   providers: [],

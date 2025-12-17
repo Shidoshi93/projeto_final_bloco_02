@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
+import { Category } from "../../category/entities/category.entity";
 
 @Injectable()
 export class DevService implements TypeOrmOptionsFactory {
@@ -12,7 +13,7 @@ export class DevService implements TypeOrmOptionsFactory {
             username: process.env.DB_USERNAME || 'root',
             password: process.env.DB_PASSWORD || 'root',
             database: process.env.DB_DATABASE || 'db_blog_pessoal',
-            entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+            entities: [Category],
             synchronize: true,
     };
   }
