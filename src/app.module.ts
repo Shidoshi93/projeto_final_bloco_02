@@ -12,15 +12,10 @@ import { TestService } from './data/service/test.service';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
     }),
-
     TypeOrmModule.forRootAsync({
-      /* useClass: process.env.NODE_ENV === 'development'
-        ? DevService
-        : process.env.NODE_ENV === 'test'
-        ? TestService
-        : ProdService, */
-      useClass: DevService,
+      useClass: AppModule.getDatabaseService(),
       imports: [ConfigModule],
     }),
     CategoryModule,
@@ -28,4 +23,14 @@ import { TestService } from './data/service/test.service';
   controllers: [AppController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  private static getDatabaseService() {
+    const env = process.env.NODE_ENV || 'development';
+    const services = {
+      development: DevService,
+      test: TestService,
+      production: ProdService,
+    };
+    return services[env] || DevService;
+  }
+}
