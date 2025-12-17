@@ -97,16 +97,17 @@ export class CategoryService {
 
     async createCategory(payload: CreateCategoryDto) {
         this.logger.log('Creating a new category');
+
         try {
-            
-            await this.categoryRepository.find({
-                where: {name: payload.name }
-            }).then((categories) => {
-                if (categories.length > 0) {
-                    this.logger.error(`Category with name: ${payload.name} already exists`);
-                    throw new BadRequestException(`Category with name: ${payload.name} already exists`);
-                }
+            // Validar nome duplicado
+            const existingCategory = await this.categoryRepository.findOne({
+                where: { name: payload.name }
             });
+
+            if (existingCategory) {
+                this.logger.error(`Category with name: ${payload.name} already exists`);
+                throw new BadRequestException(`Category with name: ${payload.name} already exists`);
+            }
 
             const newCategory = this.categoryRepository.create(payload);
             const savedCategory = await this.categoryRepository.save(newCategory);
@@ -119,7 +120,7 @@ export class CategoryService {
             }
 
             this.logger.error('Failed to create category', error.stack);
-            throw new InternalServerErrorException('Could not create category');
+            throw new InternalServerErrorException('Could not create category: ' + error);
         }
     }
 
@@ -135,7 +136,12 @@ export class CategoryService {
                 throw new NotFoundException(`Category with ID: ${id} not found`);
             }
 
-            const updatedCategory = await this.categoryRepository.save({ ...category, ...payload });
+            // Removes undefined fields from payload
+            const updateData = Object.fromEntries(
+                Object.entries(payload).filter(([, value]) => value !== undefined)
+            );
+
+            const updatedCategory = await this.categoryRepository.save({ ...category, ...updateData });
 
             this.logger.log(`Category with ID: ${id} updated`);
             return updatedCategory;
@@ -148,7 +154,7 @@ export class CategoryService {
             throw new InternalServerErrorException('Could not update category');
         }
     }
-
+    
     async deleteCategory(id: number): Promise<DeleteResult> {
         this.logger.log(`Deleting category with ID: ${id}`);
         try {

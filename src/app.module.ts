@@ -5,6 +5,8 @@ import { DevService } from './data/service/dev.service';
 import { ProdService } from './data/service/prod.service';
 import { CategoryModule } from './category/category.module';
 import { AppController } from './app.controller';
+import { Test } from '@nestjs/testing';
+import { TestService } from './data/service/test.service';
 
 @Module({
   imports: [
@@ -13,9 +15,12 @@ import { AppController } from './app.controller';
     }),
 
     TypeOrmModule.forRootAsync({
-      useClass: process.env.NODE_ENV === 'development'
+      /* useClass: process.env.NODE_ENV === 'development'
         ? DevService
-        : ProdService,
+        : process.env.NODE_ENV === 'test'
+        ? TestService
+        : ProdService, */
+      useClass: DevService,
       imports: [ConfigModule],
     }),
     CategoryModule,

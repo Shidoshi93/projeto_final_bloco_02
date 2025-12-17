@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { INestApplication, Logger } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe, BadRequestException } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import doetenv from 'dotenv';
 import chalk from 'chalk';
@@ -12,6 +12,27 @@ const BASE_URL: string = 'http://localhost:';
 async function bootstrap() {
   doetenv.config();
   const app = await NestFactory.create(AppModule);
+
+  // Validação global com tratativa de erros melhorada
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      exceptionFactory: (errors) => {
+        const errorMessages = errors.map(error => {
+          const constraints = error.constraints || {};
+          const messages = Object.values(constraints);
+          return messages.join(', ');
+        });
+        return new BadRequestException({
+          message: errorMessages.join(' | '),
+          error: 'Bad Request',
+          statusCode: 400,
+        });
+      },
+    }),
+  );
 
   swaggerSetup(app);
 

@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -15,18 +14,14 @@ export class Category {
   id: number;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Column({ length: 100, nullable: false })
+  @Column({ length: 100, nullable: false, unique: true })
   name: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @Column({ length: 255, nullable: false })
   description: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsBoolean()
   @Column({ default: true })
   isActive: boolean;
 
