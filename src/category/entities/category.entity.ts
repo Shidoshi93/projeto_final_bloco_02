@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
@@ -9,25 +9,27 @@ import {
 
 @Entity('tb_category')
 export class Category {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @IsNotEmpty()
-  @Column({ length: 100, nullable: false })
+  @ApiProperty()
+  @Column({ length: 100, nullable: false, unique: true })
   name: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
   @Column({ length: 255, nullable: false })
   description: string;
 
-  @IsNotEmpty()
-  @IsBoolean()
+  @ApiProperty()
   @Column({ default: true })
   isActive: boolean;
 
+  @ApiProperty()
   @CreateDateColumn()
   createdAt: Date;
 
+  @ApiProperty()
   @UpdateDateColumn()
   updateAt: Date;
 }
