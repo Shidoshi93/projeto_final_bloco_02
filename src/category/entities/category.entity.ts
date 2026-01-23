@@ -31,5 +31,5 @@ export class Category {
 
   @ApiProperty()
   @UpdateDateColumn()
-  updateAt: Date;
+  updatedAt: Date;
 }
