@@ -36,6 +36,8 @@ async function bootstrap() {
 
   swaggerSetup(app);
 
+  app.enableCors(ENABLECORS);
+
   await app.listen(process.env.PORT ?? 3000);
 
   logStartupMessage(Number(process.env.PORT ?? 3000));
